@@ -5,6 +5,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+import gspread
 
 # Configurações
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -65,18 +66,17 @@ button[kind="primary"], .stDownloadButton > button, div.stButton > button {{
 
 
 # 🔐 AUTENTICAÇÃO GOOGLE SHEETS
-
 def autenticar_google():
     try:
-        # Lê credenciais da conta de serviço do secrets.toml
-        service_account_info = st.secrets["service_account"]
-        creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
-        return creds
+        # Lê credenciais direto do secrets
+        creds = Credentials.from_service_account_info(
+            st.secrets["service_account"], scopes=SCOPES
+        )
+        client = gspread.authorize(creds)
+        return client
     except Exception as e:
-        st.error(f"❌ Erro ao autenticar no Google Sheets: {e}")
-        st.stop()
-
-
+        st.error(f"Erro ao autenticar no Google Sheets: {e}")
+        return None
 
 # 📤 FUNÇÃO TELEGRAM
 
@@ -245,3 +245,4 @@ if "portas" in st.session_state:
 if "ultima_atualizacao" in st.session_state:
     st.success(st.session_state["ultima_atualizacao"])
     del st.session_state["ultima_atualizacao"]
+
