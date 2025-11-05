@@ -83,7 +83,7 @@ def enviar_mensagem_telegram(entrada, porta):
 # --- AUTENTICAÇÃO COM CONTA DE SERVIÇO ---
 def autenticar_google():
     try:
-        service_info = os.environ("INTEGRACAOGOOGLESHEET")
+        service_info = os.getenv("INTEGRACAOGOOGLESHEET")
 
         if not service_info:
             st.error("❌ Variável de ambiente INTEGRACAOGOOGLESHEET não encontrada.")
@@ -209,3 +209,4 @@ if 'portas' in st.session_state:
 if 'ultima_atualizacao' in st.session_state:
     st.success(st.session_state['ultima_atualizacao'])
     del st.session_state['ultima_atualizacao']
+
