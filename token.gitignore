@@ -1,0 +1,6 @@
+# .gitignore
+token.json
+integracaogooglesheet.json
+*.key
+*.pem
+.env

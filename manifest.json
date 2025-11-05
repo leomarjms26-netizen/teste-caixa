@@ -1,0 +1,21 @@
+{
+  "name": "JMS - CONSULTA",
+  "short_name": "JMS - CONSULTA",
+  "description": "Aplicativo para verificação de portas disponíveis",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#37F75D",
+  "theme_color": "#37F75D",
+  "icons": [
+    {
+      "src": "c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
