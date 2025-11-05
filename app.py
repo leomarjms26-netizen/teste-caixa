@@ -83,18 +83,16 @@ def enviar_mensagem_telegram(entrada, porta):
 # --- AUTENTICAÇÃO COM CONTA DE SERVIÇO ---
 def autenticar_google():
     try:
-        service_info = os.getenv("INTEGRACAOGOOGLESHEET")
+        # Lê o segredo salvo no painel do Streamlit Cloud
+        service_info = st.secrets["INTEGRACAOGOOGLESHEET"]
 
-        if not service_info:
-            st.error("❌ Variável de ambiente INTEGRACAOGOOGLESHEET não encontrada.")
-            st.stop()
-
-        # Converte o JSON (armazenado como string) em dicionário Python
-        service_account_info = json.loads(service_info)
+        # Converte se estiver como string (por segurança)
+        if isinstance(service_info, str):
+            service_info = json.loads(service_info)
 
         # Cria credenciais de conta de serviço
         creds = service_account.Credentials.from_service_account_info(
-            service_account_info, scopes=SCOPES
+            service_info, scopes=SCOPES
         )
 
         return creds
@@ -209,4 +207,5 @@ if 'portas' in st.session_state:
 if 'ultima_atualizacao' in st.session_state:
     st.success(st.session_state['ultima_atualizacao'])
     del st.session_state['ultima_atualizacao']
+
 
