@@ -13,8 +13,8 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "1PLSVD3VxmgfWKOyr3Z700TbxCIZr1sT8IlOiSIvDvxM"
 RANGE = "CAIXAS!A2:K6009"
 BACKGROUND_URL = "https://raw.githubusercontent.com/leomarjms26-netizen/consulta_caixas_jms_telecom/refs/heads/main/Copilot_20251016_121602.png"
-TOKEN = "8241284074:AAHv3FDj0I86Nu-IsCXPsE1XqT3LPr8ErVY"
-CHAT_ID = "-1003127706915"
+TOKEN = st.secrets["TOKEN"]
+CHAT_ID = st.secrets["CHAT_ID"]
 
 # --- ESTILO E ÍCONES ---
 st.markdown(
@@ -207,5 +207,6 @@ if 'portas' in st.session_state:
 if 'ultima_atualizacao' in st.session_state:
     st.success(st.session_state['ultima_atualizacao'])
     del st.session_state['ultima_atualizacao']
+
 
 
