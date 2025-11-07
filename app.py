@@ -19,15 +19,18 @@ CHAT_ID = st.secrets["CHAT_ID"]
 # ESTILO E ÍCONES 
 st.markdown(
     """
-    <link rel="apple-touch-icon" sizes="180x180" href="c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/refs/heads/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/refs/heads/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="JMS - CONSULTA CAIXAS">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#ffffff">
+    <script>
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/png';
+    link.rel = 'shortcut icon';
+    link.href = 'https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/refs/heads/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
     """,
     unsafe_allow_html=True
 )
