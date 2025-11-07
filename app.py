@@ -19,8 +19,8 @@ CHAT_ID = st.secrets["CHAT_ID"]
 # ESTILO E ÍCONES 
 st.markdown(
     """
-    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/refs/heads/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/refs/heads/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#ffffff">
@@ -28,7 +28,7 @@ st.markdown(
     const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
     link.type = 'image/png';
     link.rel = 'shortcut icon';
-    link.href = 'https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/refs/heads/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png';
+    link.href = 'https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png';
     document.getElementsByTagName('head')[0].appendChild(link);
     </script>
     """,
@@ -217,3 +217,4 @@ if 'portas' in st.session_state:
 if 'ultima_atualizacao' in st.session_state:
     st.success(st.session_state['ultima_atualizacao'])
     del st.session_state['ultima_atualizacao']
+
