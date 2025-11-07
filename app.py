@@ -21,6 +21,7 @@ st.markdown(
     """
     <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/leomarjms26-netizen/teste-caixa/main/c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#ffffff">
@@ -217,4 +218,5 @@ if 'portas' in st.session_state:
 if 'ultima_atualizacao' in st.session_state:
     st.success(st.session_state['ultima_atualizacao'])
     del st.session_state['ultima_atualizacao']
+
 
