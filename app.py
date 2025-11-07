@@ -16,13 +16,18 @@ BACKGROUND_URL = "https://raw.githubusercontent.com/leomarjms26-netizen/consulta
 TOKEN = st.secrets["TOKEN"]
 CHAT_ID = st.secrets["CHAT_ID"]
 
-# --- ESTILO E ÍCONES ---
+# ESTILO E ÍCONES 
 st.markdown(
     """
     <link rel="apple-touch-icon" sizes="180x180" href="c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <link rel="icon" type="image/png" sizes="32x32" href="c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <link rel="icon" type="image/png" sizes="16x16" href="c64a4e55-0ce2-40c5-9392-fdc6f50f8b1aPNG.png">
     <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="JMS - CONSULTA CAIXAS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ffffff">
     """,
     unsafe_allow_html=True
 )
@@ -63,7 +68,7 @@ button[kind="primary"], .stDownloadButton > button, div.stButton > button {{
 </style>
 """, unsafe_allow_html=True)
 
-# --- FUNÇÃO DE ENVIO TELEGRAM ---
+# FUNÇÃO DE ENVIO TELEGRAM 
 def enviar_mensagem_telegram(entrada, porta):
     fuso_brasilia = pytz.timezone("America/Sao_Paulo")
     data_hora = datetime.now(fuso_brasilia).strftime("%d/%m/%Y %H:%M:%S")
@@ -80,17 +85,14 @@ def enviar_mensagem_telegram(entrada, porta):
     except Exception as e:
         st.warning(f"⚠️ Falha ao enviar notificação: {e}")
 
-# --- AUTENTICAÇÃO COM CONTA DE SERVIÇO ---
+# AUTENTICAÇÃO COM CONTA DE SERVIÇO 
 def autenticar_google():
     try:
-        # Lê o segredo salvo no painel do Streamlit Cloud
         service_info = st.secrets["INTEGRACAOGOOGLESHEET"]
 
-        # Converte se estiver como string (por segurança)
         if isinstance(service_info, str):
             service_info = json.loads(service_info)
 
-        # Cria credenciais de conta de serviço
         creds = service_account.Credentials.from_service_account_info(
             service_info, scopes=SCOPES
         )
@@ -101,27 +103,31 @@ def autenticar_google():
         st.error(f"❌ Erro ao autenticar com Google Sheets: {e}")
         st.stop()
 
-# --- BUSCAR PORTAS DISPONÍVEIS ---
+# BUSCAR PORTAS DISPONÍVEIS 
 def buscar_portas(creds, identificador):
     try:
         service = build("sheets", "v4", credentials=creds).spreadsheets()
         result = service.values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE).execute()
         values = result.get("values", [])
+        
         if not values:
             return []
         cab_val, prim_val, caixa_val = [x.strip().upper() for x in identificador.split("-")]
         portas_disponiveis = []
+        
         for idx, row in enumerate(values):
             row += [""] * (11 - len(row))
             if (row[0].upper() == cab_val and row[1].upper() == prim_val 
                 and row[2].upper() == caixa_val and row[8].upper() == "NÃO"):
                 portas_disponiveis.append((idx + 2, row))
+                
         return portas_disponiveis
+    
     except HttpError as err:
         st.error(f"Erro ao buscar dados: {err}")
         return []
 
-# --- ATUALIZAR PORTA ---
+# ATUALIZAR PORTA 
 def atualizar_porta(creds, linha, porta):
     try:
         service = build("sheets", "v4", credentials=creds).spreadsheets()
@@ -135,10 +141,11 @@ def atualizar_porta(creds, linha, porta):
             body=body
         ).execute()
         st.session_state['ultima_atualizacao'] = f"✅ Porta {porta} atualizada com sucesso!"
+        
     except HttpError as err:
         st.error(f"❌ Erro ao atualizar a porta {porta} (linha {linha}): {err}")
 
-# --- CALLBACKS DE BOTÕES ---
+# CALLBACKS DE BOTÕES 
 def sim_click(creds, linha, porta):
     atualizar_porta(creds, linha, porta)
     enviar_mensagem_telegram(entrada, porta)
@@ -149,7 +156,7 @@ def nao_click(linha, row):
     if 'portas' in st.session_state:
         st.session_state['portas'] = [p for p in st.session_state['portas'] if p[0] != linha]
 
-# --- INTERFACE STREAMLIT ---
+# INTERFACE STREAMLIT 
 st.set_page_config(
     page_title="Verificador de Portas",
     layout="centered",
@@ -207,6 +214,3 @@ if 'portas' in st.session_state:
 if 'ultima_atualizacao' in st.session_state:
     st.success(st.session_state['ultima_atualizacao'])
     del st.session_state['ultima_atualizacao']
-
-
-
